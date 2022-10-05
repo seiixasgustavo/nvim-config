@@ -40,12 +40,13 @@ packer.init {
 
 -- Install your plugins here
 return packer.startup(function(use)
-  
+
   -- My plugins here
   use "wbthomason/packer.nvim"  -- Have packer manage itself
   use "nvim-lua/popup.nvim"     -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim"   -- Useful lua functions used ny lots of plugins
-
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-nvim-lua"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -54,8 +55,23 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
 
+
+  -- LSP
+  use "neovim/nvim-lspconfig"
+  use "williamboman/nvim-lsp-installer"
+
+  -- Telescope
+  use "nvim-telescope/telescope.nvim"
+
+  -- ## LANGUAGES
+
+  -- Clojure
+  use 'Olical/conjure'
+
   -- Golang Plugins
-  use "fatih/vim-go"    
+  use "fatih/vim-go"
+
+  -- ## LANGUAGES
 
 
   -- Colorschemes
