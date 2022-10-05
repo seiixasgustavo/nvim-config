@@ -55,13 +55,22 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
 
-
   -- LSP
   use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer"
+  use "tamago324/nlsp-settings.nvim"
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
+
+  -- Treesitter
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+  }
+  use "p00f/nvim-ts-rainbow"
+  use "nvim-treesitter/playground"
+
 
   -- ## LANGUAGES
 
@@ -77,6 +86,7 @@ return packer.startup(function(use)
   -- Colorschemes
   use "arzg/vim-colors-xcode"
   use "folke/tokyonight.nvim"
+  use 'shaunsingh/nord.nvim'
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
