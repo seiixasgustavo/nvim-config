@@ -1,7 +1,12 @@
 local function read_json(file_path)
     local file = io.open(file_path, "r")
+
+    if file == nil then
+      return
+    end
+
     local table = vim.fn.json_decode(file:read("a"))
-    file.close()
+    io.close(file)
 
     return table
 end
