@@ -71,6 +71,8 @@ return packer.startup(function(use)
   use "p00f/nvim-ts-rainbow"
   use "nvim-treesitter/playground"
 
+  -- Autopairs
+  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
 
   -- ## LANGUAGES
 
@@ -78,7 +80,7 @@ return packer.startup(function(use)
   use 'Olical/conjure'
 
   -- Golang Plugins
-  use "fatih/vim-go"
+  use "ray-x/go.nvim"
 
   -- ## LANGUAGES
 
@@ -86,7 +88,13 @@ return packer.startup(function(use)
   -- Colorschemes
   use "arzg/vim-colors-xcode"
   use "folke/tokyonight.nvim"
-  use 'shaunsingh/nord.nvim'
+  use "shaunsingh/nord.nvim"
+  use "sainnhe/gruvbox-material"
+  use "dracula/vim"
+  use "bluz71/vim-moonfly-colors"
+  use "sainnhe/edge"
+  use "FrenzyExists/aquarium-vim"
+  use "EdenEast/nightfox.nvim"
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
