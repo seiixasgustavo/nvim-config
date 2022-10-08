@@ -1,124 +1,126 @@
 local fn = vim.fn
 
 -- Automatically install packer
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = fn.system {
-    "git",
-    "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
-  }
-  print "Installing packer close and reopen Neovim..."
-  vim.cmd [[packadd packer.nvim]]
+	PACKER_BOOTSTRAP = fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
+	print("Installing packer close and reopen Neovim...")
+	vim.cmd([[packadd packer.nvim]])
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
-]]
+]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-  return
+	return
 end
 
 -- Have packer use a popup window
-packer.init {
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "rounded" }
-    end,
-  },
-}
+packer.init({
+	display = {
+		open_fn = function()
+			return require("packer.util").float({ border = "rounded" })
+		end,
+	},
+})
 
 -- Install your plugins here
 return packer.startup(function(use)
+	-- My plugins here
+	use("wbthomason/packer.nvim") -- Have packer manage itself
+	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
+	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-nvim-lua")
+	use("nvim-lualine/lualine.nvim")
 
-  -- My plugins here
-  use "wbthomason/packer.nvim"  -- Have packer manage itself
-  use "nvim-lua/popup.nvim"     -- An implementation of the Popup API from vim in Neovim
-  use "nvim-lua/plenary.nvim"   -- Useful lua functions used ny lots of plugins
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
+	-- cmp plugins
+	use("hrsh7th/nvim-cmp") -- The completion plugin
+	use("hrsh7th/cmp-buffer") -- buffer completions
+	use("hrsh7th/cmp-path") -- path completions
+	use("hrsh7th/cmp-cmdline") -- cmdline completions
+	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 
-  -- cmp plugins
-  use "hrsh7th/nvim-cmp" -- The completion plugin
-  use "hrsh7th/cmp-buffer" -- buffer completions
-  use "hrsh7th/cmp-path" -- path completions
-  use "hrsh7th/cmp-cmdline" -- cmdline completions
-  use "saadparwaiz1/cmp_luasnip" -- snippet completions
+	-- NvimTree
+	use("kyazdani42/nvim-web-devicons")
+	use("kyazdani42/nvim-tree.lua")
 
-  -- NvimTree
-  use 'kyazdani42/nvim-web-devicons'
-  use 'kyazdani42/nvim-tree.lua'
+	-- Git
+	use("lewis6991/gitsigns.nvim")
 
-  -- Git
-  use "lewis6991/gitsigns.nvim"
+	-- LSP
+	use("neovim/nvim-lspconfig")
+	use("williamboman/nvim-lsp-installer")
+	use("tamago324/nlsp-settings.nvim")
+	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
 
-  -- LSP
-  use "neovim/nvim-lspconfig"
-  use "williamboman/nvim-lsp-installer"
-  use "tamago324/nlsp-settings.nvim"
+	-- Telescope
+	use("nvim-telescope/telescope.nvim")
 
-  -- Telescope
-  use "nvim-telescope/telescope.nvim"
+	-- Treesitter
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
+	use("p00f/nvim-ts-rainbow")
+	use("nvim-treesitter/playground")
+	use("nvim-treesitter/nvim-treesitter-context")
 
-  -- Treesitter
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-  }
-  use "p00f/nvim-ts-rainbow"
-  use "nvim-treesitter/playground"
-  use 'nvim-treesitter/nvim-treesitter-context'
+	-- Autopairs
+	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
 
-  -- Autopairs
-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+	-- Comments
+	use("numToStr/Comment.nvim") -- Easily comment stuff
+	use("JoosepAlviste/nvim-ts-context-commentstring")
 
-  -- Comments
-  use "numToStr/Comment.nvim" -- Easily comment stuff
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-
-  -- Bufferline
-  use({ "akinsho/bufferline.nvim", commit = "c78b3ecf9539a719828bca82fc7ddb9b3ba0c353" })
+	-- Bufferline
+	use({ "akinsho/bufferline.nvim", commit = "c78b3ecf9539a719828bca82fc7ddb9b3ba0c353" })
 	use({ "moll/vim-bbye", commit = "25ef93ac5a87526111f43e5110675032dbcacf56" })
 
-  -- ## LANGUAGES
+	-- ## LANGUAGES
 
-  -- Clojure
-  use 'Olical/conjure'
+	-- Clojure
+	use("Olical/conjure")
 
-  -- Golang Plugins
-  use "ray-x/go.nvim"
+	-- Golang Plugins
+	--use "ray-x/go.nvim"
 
-  -- ## LANGUAGES
+	-- ## LANGUAGES
 
+	-- Colorschemes
+	use("xiyaowong/nvim-transparent")
+	-- Themes
+	use("arzg/vim-colors-xcode")
+	use("folke/tokyonight.nvim")
+	use("shaunsingh/nord.nvim")
+	use("sainnhe/gruvbox-material")
+	use("dracula/vim")
+	use("bluz71/vim-moonfly-colors")
+	use("sainnhe/edge")
+	use("FrenzyExists/aquarium-vim")
+	use("EdenEast/nightfox.nvim")
 
-  -- Colorschemes
-  use "arzg/vim-colors-xcode"
-  use "folke/tokyonight.nvim"
-  use "shaunsingh/nord.nvim"
-  use "sainnhe/gruvbox-material"
-  use "dracula/vim"
-  use "bluz71/vim-moonfly-colors"
-  use "sainnhe/edge"
-  use "FrenzyExists/aquarium-vim"
-  use "EdenEast/nightfox.nvim"
+	-- snippets
+	use("L3MON4D3/LuaSnip") --snippet engine
+	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 
-  -- snippets
-  use "L3MON4D3/LuaSnip" --snippet engine
-  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if PACKER_BOOTSTRAP then
-    require("packer").sync()
-  end
+	-- Automatically set up your configuration after cloning packer.nvim
+	-- Put this at the end after all plugins
+	if PACKER_BOOTSTRAP then
+		require("packer").sync()
+	end
 end)
