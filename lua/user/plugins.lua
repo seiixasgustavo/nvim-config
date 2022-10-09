@@ -47,6 +47,12 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-nvim-lua")
 	use("nvim-lualine/lualine.nvim")
+	use("akinsho/toggleterm.nvim")
+	use("ahmedkhalf/project.nvim")
+	use("lewis6991/impatient.nvim")
+	use("lukas-reineke/indent-blankline.nvim")
+  use 'goolord/alpha-nvim'
+  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
 
 	-- cmp plugins
 	use("hrsh7th/nvim-cmp") -- The completion plugin
@@ -92,12 +98,6 @@ return packer.startup(function(use)
 	use({ "moll/vim-bbye", commit = "25ef93ac5a87526111f43e5110675032dbcacf56" })
 
 	-- ## LANGUAGES
-
-	-- Clojure
-	use("Olical/conjure")
-
-	-- Golang Plugins
-	--use "ray-x/go.nvim"
 
 	-- ## LANGUAGES
 
