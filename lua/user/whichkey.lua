@@ -159,6 +159,10 @@ local mappings = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
+    h = {
+      "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+      "Signature Help"
+    }
   },
 
   s = {
